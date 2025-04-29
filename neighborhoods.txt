@@ -1,0 +1,87 @@
+
+"Midtown East": {
+    "lat_min": 40.752,
+    "lat_max": 40.768,
+    "lon_min": -73.984,
+    "lon_max": -73.962,
+    "rent": 125.86
+}
+"Midtown West": {
+    "lat_min": 40.753,
+    "lat_max": 40.765,
+    "lon_min": -74.007,
+    "lon_max": -73.984,
+    "rent": 122.94
+}
+"Bronx": {
+    "lat_min": 40.800,
+    "lat_max": 40.916,
+    "lon_min": -73.934,
+    "lon_max": -73.825,
+    "rent": 64.31
+}
+"Chelsea": {
+    "lat_min": 40.740,
+    "lat_max": 40.755,
+    "lon_min": -74.015,
+    "lon_max": -73.995,
+    "rent": 80.06
+}
+"NoMad / Murray Hill": {
+    "lat_min": 40.738,
+    "lat_max": 40.752,
+    "lon_min": -73.995,
+    "lon_max": -73.970,
+    "rent": 95.57
+}
+"Greenwich Village / Meatpacking": {
+    "lat_min": 40.723,
+    "lat_max": 40.739,
+    "lon_min": -74.009,
+    "lon_max": -73.996,
+    "rent": 159.93
+}
+"East Village": {
+    "lat_min": 40.720,
+    "lat_max": 40.734,
+    "lon_min": -73.992,
+    "lon_max": -73.980,
+    "rent": 117.53
+}
+"Manhattan Below Houston": {
+    "lat_min": 40.698,
+    "lat_max": 40.723,
+    "lon_min": -74.016,
+    "lon_max": -74.003,
+    "rent": 74.68
+}
+"Downtown Brooklyn": {
+    "lat_min": 40.683,
+    "lat_max": 40.698,
+    "lon_min": -73.992,
+    "lon_max": -73.983,
+    "rent": 62.97
+}
+"Brooklyn (Under Downtown to Coney Island)": {
+    "lat_min": 40.574,
+    "lat_max": 40.683,
+    "lon_min": -74.020,
+    "lon_max": -73.917,
+    "rent": 45.37
+}
+"Queens (General)": {
+    "lat_min": 40.566,
+    "lat_max": 40.800,
+    "lon_min": -73.964,
+    "lon_max": -73.700,
+    "rent": 44.03
+}
+"Northern Brooklyn (Bushwick/E. Williamsburg/Greenpoint)": {
+    "lat_min": 40.695,
+    "lat_max": 40.715,
+    "lon_min": -73.950,
+    "lon_max": -73.905,
+    "rent": 41.54
+}
+
+
