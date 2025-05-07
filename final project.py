@@ -43,9 +43,9 @@ def optimize_coffee_shops(df, day='May07'):
     """Optimize coffee shop locations for maximum daily profit"""
     
     # Parameters (using your specified values)
-    shop_size = 800  # sqft
+    shop_size = 1000  # sqft
     profit_per_customer = 5  # $ per customer (after COGS)
-    staff_cost_per_shift = 80  # $ per shift
+    staff_cost_per_shift = 160  # $ per shift
     electricity_cost = 0.125  # $ per sqft per day
     
     # Time-specific conversion rates (using your 10% for all periods)
@@ -53,8 +53,11 @@ def optimize_coffee_shops(df, day='May07'):
     
     # Select top 20 locations for optimization
     time_cols = [f'{day}_{t}' for t in ['AM', 'MD', 'PM']]
-    candidate_locs = df.groupby('Loc')[time_cols + ['rent_per_sqft_daily']].mean()
-    candidate_locs = candidate_locs.nlargest(20, time_cols).copy()
+    # Use all locations (no filtering by traffic)
+    candidate_locs = df.groupby('Loc')[time_cols + ['rent_per_sqft_daily']].mean().copy()
+
+    # New: Drop any rows that have NaNs in traffic or rent data
+    candidate_locs.dropna(subset=time_cols + ['rent_per_sqft_daily'], inplace=True)
     
     # Create model
     model = gp.Model("CoffeeShopOptimization")
@@ -130,7 +133,7 @@ def optimize_coffee_shops(df, day='May07'):
                 })
         
         results_df = pd.DataFrame(results).sort_values('Daily Profit', ascending=False)
-        return results_df.round(2)
+        return results_df.round(2).head(20)
     else:
         print("No optimal solution found")
         return None
@@ -165,7 +168,7 @@ if __name__ == "__main__":
                       'Daily Customers', 'Daily Revenue', 'Daily Rent', 'Daily Staff']].to_string(index=False))
         
         best_loc = results.iloc[0]
-        print(f"\n🌟 Best Location: {best_loc['Location']}")
+        print(f"\n Best Location: {best_loc['Location']}")
         print(f"   Daily Profit: ${best_loc['Daily Profit']:,.2f}")
         print(f"   Monthly Rent: ${best_loc['Rent ($/sqft monthly)'] * 800:,.2f} (${best_loc['Rent ($/sqft monthly)']:.2f}/sqft)")
         print(f"   Operating Hours: {best_loc['Operating Times']}")
