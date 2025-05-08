@@ -68,8 +68,8 @@ def create_map(
     ).add_to(m)
     
     # Add layer control
-    feature_group_profitable = folium.FeatureGroup(name="Profitable Locations (>$500/day)")
-    feature_group_other = folium.FeatureGroup(name="Other Locations")
+    feature_group_profitable = folium.FeatureGroup(name="Optimal Locations (>$500/day)")
+    feature_group_other = folium.FeatureGroup(name="All Locations")
     
     # Merge profit data if provided
     if profit_data is not None and 'Loc' in profit_data.columns:
