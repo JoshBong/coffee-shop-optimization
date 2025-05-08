@@ -3,10 +3,7 @@ import gurobipy as gp
 from gurobipy import GRB
 import pandas as pd
 
-# ======================================
-# 1. Data Preparation
-# ======================================
-
+# Data prep
 def prepare_data(pedestrian_url, neighborhoods_url):
     """Load and preprocess the data"""
     df = get_neighborhoods(pedestrian_url, neighborhoods_url)
@@ -35,10 +32,7 @@ def prepare_data(pedestrian_url, neighborhoods_url):
     
     return filtered_df
 
-# ======================================
-# 2. Optimization Model
-# ======================================
-
+# Optimize model
 def optimize_coffee_shops(df, day='May07'):
     """Optimize coffee shop locations for maximum daily profit"""
     
@@ -70,10 +64,7 @@ def optimize_coffee_shops(df, day='May07'):
             y[loc,t] * conversion_rates[t] * candidate_locs.loc[loc, f'{day}_{t}'] * profit_per_customer
             for t in ['AM', 'MD', 'PM']
         )
-        loc_profit = revenue - rent_cost - utility_cost - staff_cost
-        
-        # Minimum $500 daily profit constraint
-        
+        loc_profit = revenue - rent_cost - utility_cost - staff_cost        
         
         profit += loc_profit
     
@@ -125,16 +116,13 @@ def optimize_coffee_shops(df, day='May07'):
                         'PM Traffic': int(traffic['PM'])
                     })
 
-
         results_df = pd.DataFrame(results).sort_values('Daily Profit', ascending=False)
         return results_df.round(2)
     else:
         print("No optimal solution found.")
         return None
 
-# ======================================
-# 3. Execute the Analysis
-# ======================================
+# Solve model 
 
 if __name__ == "__main__":
     pedestrian_url = "https://gist.githubusercontent.com/JoshBong/d83569f9837962d98b2c16d2312ed2d2/raw"
@@ -156,7 +144,7 @@ if __name__ == "__main__":
     if results is not None:
         print("\nOptimal Coffee Shop Locations:\n")
         print(results[['Location', 'Rent ($/sqft monthly)', 'Daily Profit', 'Operating Times',
-                       'Daily Customers', 'Daily Revenue', 'Daily Rent', 'Daily Staff']].to_string(index=False))
+                       'Daily Customers', 'Daily Revenue', 'Daily Rent']].to_string(index=False))
         
         best_loc = results.iloc[0]
         print(f"\n Best Location: {best_loc['Location']}")
@@ -168,4 +156,12 @@ if __name__ == "__main__":
         # Total places with over $500 profit
         over_500 = len(results[results['Daily Profit'] > 500])
         print(f"   Number of places with daily profit over $500: {over_500}")
+
+        worst_loc = results.iloc[-1]
+        print(f"\n Worst Location: {worst_loc['Location']}")
+        print(f"   Daily Profit: ${worst_loc['Daily Profit']:,.2f}")
+        print(f"   Monthly Rent: ${worst_loc['Rent ($/sqft monthly)'] * 800:,.2f} (${worst_loc['Rent ($/sqft monthly)']:.2f}/sqft)")
+        print(f"   Operating Hours: {worst_loc['Operating Times']}")
+        print(f"   Daily Customers: {worst_loc['Daily Customers']}")
+        print(f"   Daily Revenue: ${worst_loc['Daily Revenue']:,.2f}")
 
