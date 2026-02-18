@@ -122,11 +122,16 @@ coffee-shop-optimization/
 ├── README.md
 ├── .gitignore
 ├── data/
-│   └── Bi-Annual_Pedestrian_Counts_20250423.csv
+│   └── Bi-Annual_Pedestrian_Counts_20250423.csv   # NYC pedestrian count data
+├── docs/
+│   └── pedestrian_consumer_behavior.pdf           # Reference research paper
 ├── src/
-│   ├── optimizer.py          # Main optimization model
-│   ├── map.py                # Folium map generation
-│   └── get_neighborhood.py   # Rent zone assignment by lat/lon
+│   ├── optimizer.py          # Main entry point — runs the full optimization pipeline
+│   ├── optimization.py       # Gurobi model definition and constraints
+│   ├── map.py                # Folium interactive map generation
+│   ├── get_neighborhood.py   # Rent zone assignment by lat/lon bounding boxes
+│   ├── neighborhoods.txt     # Neighborhood name reference data
+│   └── test_lat_lon.py       # Coordinate validation utilities
 └── output/
-    └── coffee_shop_locations.html  # Interactive map of results
+    └── coffee_shop_locations.html  # Interactive map of optimal vs. all locations
 ```
